@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s26/proj-dining-s26-08
 owner: ucsb-cs156-s26
 repo_name: proj-dining-s26-08
-pull_requests: []
+pull_requests: [{"author":{"id":"U_kgDOCVPcVQ","is_bot":false,"login":"matthewli10","name":""},"headRefName":"matthewli-react-eslint-rules","number":19,"title":"Reintroduce react eslint rules","url":"https://github.com/ucsb-cs156-s26/proj-dining-s26-08/pull/19"}]

@@ -39,36 +39,35 @@ public class RoleInterceptor implements HandlerInterceptor {
 <span class="fc" id="L39">    Authentication authentication = securityContext.getAuthentication();</span>
 
 <span class="fc bfc" id="L41" title="All 2 branches covered.">    if (authentication instanceof OAuth2AuthenticationToken oauthToken) {</span>
-<span class="pc bpc" id="L42" title="1 of 2 branches missed.">      if (oauthToken.getPrincipal() instanceof OAuth2User oauthUser) {</span>
-        String email =
-<span class="pc bpc" id="L44" title="1 of 2 branches missed.">            oauthUser instanceof OidcUser oidcUser</span>
-<span class="nc" id="L45">                ? oidcUser.getEmail()</span>
-<span class="fc" id="L46">                : oauthUser.getAttribute(&quot;email&quot;);</span>
-<span class="fc" id="L47">        Collection&lt;? extends GrantedAuthority&gt; authorities = authentication.getAuthorities();</span>
-<span class="fc" id="L48">        Set&lt;GrantedAuthority&gt; revisedAuthorities = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L42">      OAuth2User oauthUser = oauthToken.getPrincipal();</span>
+      String email =
+<span class="fc bfc" id="L44" title="All 2 branches covered.">          oauthUser instanceof OidcUser oidcUser</span>
+<span class="fc" id="L45">              ? oidcUser.getEmail()</span>
+<span class="fc" id="L46">              : oauthUser.getAttribute(&quot;email&quot;);</span>
+<span class="fc" id="L47">      Collection&lt;? extends GrantedAuthority&gt; authorities = authentication.getAuthorities();</span>
+<span class="fc" id="L48">      Set&lt;GrantedAuthority&gt; revisedAuthorities = new HashSet&lt;&gt;();</span>
 
-<span class="fc" id="L50">        authorities.stream()</span>
-<span class="fc" id="L51">            .filter(</span>
-                grantedAuth -&gt;
-<span class="fc bfc" id="L53" title="All 2 branches covered.">                    !grantedAuth.getAuthority().equals(&quot;ROLE_ADMIN&quot;)</span>
-<span class="fc bfc" id="L54" title="All 2 branches covered.">                        &amp;&amp; !grantedAuth.getAuthority().equals(&quot;ROLE_MODERATOR&quot;))</span>
-<span class="fc" id="L55">            .forEach(revisedAuthorities::add);</span>
+<span class="fc" id="L50">      authorities.stream()</span>
+<span class="fc" id="L51">          .filter(</span>
+              grantedAuth -&gt;
+<span class="fc bfc" id="L53" title="All 2 branches covered.">                  !grantedAuth.getAuthority().equals(&quot;ROLE_ADMIN&quot;)</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">                      &amp;&amp; !grantedAuth.getAuthority().equals(&quot;ROLE_MODERATOR&quot;))</span>
+<span class="fc" id="L55">          .forEach(revisedAuthorities::add);</span>
 
-<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (adminRepository.existsByEmail(email)) {</span>
-<span class="fc" id="L58">          revisedAuthorities.add(new SimpleGrantedAuthority(&quot;ROLE_ADMIN&quot;));</span>
-        }
-<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (moderatorRepository.existsByEmail(email)) {</span>
-<span class="fc" id="L61">          revisedAuthorities.add(new SimpleGrantedAuthority(&quot;ROLE_MODERATOR&quot;));</span>
-        }
-
-<span class="fc" id="L64">        Authentication newAuth =</span>
-            new OAuth2AuthenticationToken(
-<span class="fc" id="L66">                oauthUser, revisedAuthorities, oauthToken.getAuthorizedClientRegistrationId());</span>
-
-<span class="fc" id="L68">        securityContext.setAuthentication(newAuth);</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">      if (adminRepository.existsByEmail(email)) {</span>
+<span class="fc" id="L58">        revisedAuthorities.add(new SimpleGrantedAuthority(&quot;ROLE_ADMIN&quot;));</span>
       }
+<span class="fc bfc" id="L60" title="All 2 branches covered.">      if (moderatorRepository.existsByEmail(email)) {</span>
+<span class="fc" id="L61">        revisedAuthorities.add(new SimpleGrantedAuthority(&quot;ROLE_MODERATOR&quot;));</span>
+      }
+
+<span class="fc" id="L64">      Authentication newAuth =</span>
+          new OAuth2AuthenticationToken(
+<span class="fc" id="L66">              oauthUser, revisedAuthorities, oauthToken.getAuthorizedClientRegistrationId());</span>
+
+<span class="fc" id="L68">      securityContext.setAuthentication(newAuth);</span>
     }
-<span class="fc" id="L71">    return true;</span>
+<span class="fc" id="L70">    return true;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -97,4 +97,48 @@ describe("ReviewForm tests", () => {
       "2024-04-03T16:20",
     );
   });
+
+  test("stars field shows is-invalid class when validation fails", async () => {
+    const submitAction = vi.fn();
+    render(<ReviewForm initialItemName="Pizza" submitAction={submitAction} />);
+
+    fireEvent.change(screen.getByLabelText(/date and time/i), {
+      target: { value: "" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: /submit review/i }));
+
+    await waitFor(() =>
+      expect(screen.getByLabelText(/date and time/i)).toHaveClass("is-invalid"),
+    );
+  });
+
+  test("date required error message appears when date is empty", async () => {
+    render(<ReviewForm initialItemName="Pizza" submitAction={vi.fn()} />);
+
+    fireEvent.change(screen.getByLabelText(/date and time/i), {
+      target: { value: "" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: /submit review/i }));
+
+    await waitFor(() =>
+      expect(screen.getByText(/date is required/i)).toBeInTheDocument(),
+    );
+  });
+
+  test("comments field has no error class when valid", () => {
+    render(<ReviewForm initialItemName="Pizza" submitAction={vi.fn()} />);
+    expect(screen.getByLabelText(/comments/i)).not.toHaveClass("is-invalid");
+  });
+
+  test("stars field has no error class when valid", () => {
+    render(<ReviewForm initialItemName="Pizza" submitAction={vi.fn()} />);
+    expect(screen.getByLabelText(/stars/i)).not.toHaveClass("is-invalid");
+  });
+
+  test("date field has no error class when valid", () => {
+    render(<ReviewForm initialItemName="Pizza" submitAction={vi.fn()} />);
+    expect(screen.getByLabelText(/date and time/i)).not.toHaveClass(
+      "is-invalid",
+    );
+  });
 });

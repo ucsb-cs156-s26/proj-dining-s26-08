@@ -7,6 +7,7 @@ import edu.ucsb.cs156.dining.entities.Moderator;
 import edu.ucsb.cs156.dining.entities.User;
 import edu.ucsb.cs156.dining.errors.EntityNotFoundException;
 import edu.ucsb.cs156.dining.models.CurrentUser;
+import edu.ucsb.cs156.dining.models.UserDTO;
 import edu.ucsb.cs156.dining.repositories.AdminRepository;
 import edu.ucsb.cs156.dining.repositories.ModeratorRepository;
 import edu.ucsb.cs156.dining.repositories.UserRepository;
@@ -16,6 +17,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -35,9 +37,9 @@ import org.springframework.web.server.ResponseStatusException;
 @Tag(name = &quot;User information (admin only)&quot;)
 @RequestMapping(&quot;/api&quot;)
 @RestController
-<span class="fc" id="L38">public class UsersController extends ApiController {</span>
+<span class="fc" id="L40">public class UsersController extends ApiController {</span>
 
-<span class="fc" id="L40">  @Value(&quot;${app.admin.emails}&quot;)</span>
+<span class="fc" id="L42">  @Value(&quot;#{'${app.admin.emails}'.split(',')}&quot;)</span>
   private final List&lt;String&gt; adminEmails = new ArrayList&lt;&gt;();
 
   @Autowired UserRepository userRepository;
@@ -59,9 +61,11 @@ import org.springframework.web.server.ResponseStatusException;
   @GetMapping(&quot;/admin/users&quot;)
   public ResponseEntity&lt;String&gt; users() throws JsonProcessingException {
 
-<span class="fc" id="L62">    Iterable&lt;User&gt; users = userRepository.findAll();</span>
-<span class="fc" id="L63">    String body = mapper.writeValueAsString(users);</span>
-<span class="fc" id="L64">    return ResponseEntity.ok().body(body);</span>
+<span class="fc" id="L64">    Iterable&lt;User&gt; users = userRepository.findAll();</span>
+<span class="fc" id="L65">    List&lt;UserDTO&gt; userDTOs =</span>
+<span class="fc" id="L66">        StreamSupport.stream(users.spliterator(), false).map(this::userDTO).toList();</span>
+<span class="fc" id="L67">    String body = mapper.writeValueAsString(userDTOs);</span>
+<span class="fc" id="L68">    return ResponseEntity.ok().body(body);</span>
   }
 
   /**
@@ -74,9 +78,9 @@ import org.springframework.web.server.ResponseStatusException;
   @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
   @GetMapping(&quot;/admin/usersWithProposedAlias&quot;)
   public ResponseEntity&lt;String&gt; getUsersWithProposedAlias() throws JsonProcessingException {
-<span class="fc" id="L77">    Iterable&lt;User&gt; users = userRepository.findByProposedAliasNotNull();</span>
-<span class="fc" id="L78">    String body = mapper.writeValueAsString(users);</span>
-<span class="fc" id="L79">    return ResponseEntity.ok().body(body);</span>
+<span class="fc" id="L81">    Iterable&lt;User&gt; users = userRepository.findByProposedAliasNotNull();</span>
+<span class="fc" id="L82">    String body = mapper.writeValueAsString(users);</span>
+<span class="fc" id="L83">    return ResponseEntity.ok().body(body);</span>
   }
 
   /** Get all users whose proposed alias is awaiting moderation. */
@@ -85,12 +89,12 @@ import org.springframework.web.server.ResponseStatusException;
   @GetMapping(&quot;/admin/users/needsmoderation&quot;)
   public ResponseEntity&lt;String&gt; getAliasesNeedingModeration() throws JsonProcessingException {
 
-<span class="fc" id="L88">    Iterable&lt;User&gt; users =</span>
-<span class="fc" id="L89">        userRepository.findByStatusAndProposedAliasNotNull(ModerationStatus.AWAITING_REVIEW);</span>
+<span class="fc" id="L92">    Iterable&lt;User&gt; users =</span>
+<span class="fc" id="L93">        userRepository.findByStatusAndProposedAliasNotNull(ModerationStatus.AWAITING_REVIEW);</span>
 
-<span class="fc" id="L91">    String body = mapper.writeValueAsString(users);</span>
+<span class="fc" id="L95">    String body = mapper.writeValueAsString(users);</span>
 
-<span class="fc" id="L93">    return ResponseEntity.ok().body(body);</span>
+<span class="fc" id="L97">    return ResponseEntity.ok().body(body);</span>
   }
 
   /**
@@ -103,18 +107,18 @@ import org.springframework.web.server.ResponseStatusException;
   @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
   @PostMapping(&quot;/currentUser/updateAlias&quot;)
   public ResponseEntity&lt;User&gt; updateProposedAlias(@RequestParam String proposedAlias) {
-<span class="fc" id="L106">    CurrentUser currentUser = super.getCurrentUser();</span>
-<span class="fc" id="L107">    User user = currentUser.getUser();</span>
+<span class="fc" id="L110">    CurrentUser currentUser = super.getCurrentUser();</span>
+<span class="fc" id="L111">    User user = currentUser.getUser();</span>
 
-<span class="fc bfc" id="L109" title="All 2 branches covered.">    if (userRepository.findByAlias(proposedAlias).isPresent()) {</span>
-<span class="fc" id="L110">      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, &quot;Alias already in use.&quot;);</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">    if (userRepository.findByAlias(proposedAlias).isPresent()) {</span>
+<span class="fc" id="L114">      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, &quot;Alias already in use.&quot;);</span>
     }
 
-<span class="fc" id="L113">    user.setProposedAlias(proposedAlias);</span>
-<span class="fc" id="L114">    user.setStatus(ModerationStatus.AWAITING_REVIEW);</span>
-<span class="fc" id="L115">    User savedUser = userRepository.save(user);</span>
+<span class="fc" id="L117">    user.setProposedAlias(proposedAlias);</span>
+<span class="fc" id="L118">    user.setStatus(ModerationStatus.AWAITING_REVIEW);</span>
+<span class="fc" id="L119">    User savedUser = userRepository.save(user);</span>
 
-<span class="fc" id="L117">    return ResponseEntity.ok(savedUser);</span>
+<span class="fc" id="L121">    return ResponseEntity.ok(savedUser);</span>
   }
 
   /**
@@ -128,21 +132,21 @@ import org.springframework.web.server.ResponseStatusException;
   @PutMapping(&quot;/currentUser/updateAliasModeration&quot;)
   public User updateAliasModeration(@RequestParam long id, @RequestParam Boolean approved) {
 
-<span class="fc" id="L131">    User user =</span>
-<span class="fc" id="L132">        userRepository.findById(id).orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
+<span class="fc" id="L135">    User user =</span>
+<span class="fc" id="L136">        userRepository.findById(id).orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
 
-<span class="fc bfc" id="L134" title="All 2 branches covered.">    if (approved) {</span>
-<span class="fc" id="L135">      user.setAlias(user.getProposedAlias());</span>
-<span class="fc" id="L136">      user.setStatus(ModerationStatus.APPROVED);</span>
-<span class="fc" id="L137">      user.setDateApproved(LocalDate.now());</span>
-<span class="fc" id="L138">      user.setProposedAlias(null);</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">    if (approved) {</span>
+<span class="fc" id="L139">      user.setAlias(user.getProposedAlias());</span>
+<span class="fc" id="L140">      user.setStatus(ModerationStatus.APPROVED);</span>
+<span class="fc" id="L141">      user.setDateApproved(LocalDate.now());</span>
+<span class="fc" id="L142">      user.setProposedAlias(null);</span>
     } else {
-<span class="fc" id="L140">      user.setStatus(ModerationStatus.REJECTED);</span>
+<span class="fc" id="L144">      user.setStatus(ModerationStatus.REJECTED);</span>
     }
 
-<span class="fc" id="L143">    userRepository.save(user);</span>
+<span class="fc" id="L147">    userRepository.save(user);</span>
 
-<span class="fc" id="L145">    return user;</span>
+<span class="fc" id="L149">    return user;</span>
   }
 
   /**
@@ -154,19 +158,19 @@ import org.springframework.web.server.ResponseStatusException;
    */
   @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
   @PutMapping(&quot;/admin/toggleAdmin&quot;)
-  public User toggleAdminStatus(@RequestParam long id) {
+  public UserDTO toggleAdminStatus(@RequestParam long id) {
 
-<span class="fc" id="L159">    User user =</span>
-<span class="fc" id="L160">        userRepository.findById(id).orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
+<span class="fc" id="L163">    User user =</span>
+<span class="fc" id="L164">        userRepository.findById(id).orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
 
-<span class="fc bfc" id="L162" title="All 2 branches covered.">    if (!adminEmails.contains(user.getEmail())) {</span>
-<span class="fc" id="L163">      adminRepository</span>
-<span class="fc" id="L164">          .findByEmail(user.getEmail())</span>
-<span class="fc" id="L165">          .ifPresentOrElse(</span>
-<span class="fc" id="L166">              adminRepository::delete, () -&gt; adminRepository.save(new Admin(user.getEmail())));</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">    if (!adminEmails.contains(user.getEmail())) {</span>
+<span class="fc" id="L167">      adminRepository</span>
+<span class="fc" id="L168">          .findByEmail(user.getEmail())</span>
+<span class="fc" id="L169">          .ifPresentOrElse(</span>
+<span class="fc" id="L170">              adminRepository::delete, () -&gt; adminRepository.save(new Admin(user.getEmail())));</span>
     }
 
-<span class="fc" id="L169">    return user;</span>
+<span class="fc" id="L173">    return userDTO(user);</span>
   }
 
   /**
@@ -177,18 +181,25 @@ import org.springframework.web.server.ResponseStatusException;
    */
   @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
   @PutMapping(&quot;/admin/toggleModerator&quot;)
-  public User toggleModeratorStatus(@RequestParam long id) {
+  public UserDTO toggleModeratorStatus(@RequestParam long id) {
 
-<span class="fc" id="L182">    User user =</span>
-<span class="fc" id="L183">        userRepository.findById(id).orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
+<span class="fc" id="L186">    User user =</span>
+<span class="fc" id="L187">        userRepository.findById(id).orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
 
-<span class="fc" id="L185">    moderatorRepository</span>
-<span class="fc" id="L186">        .findByEmail(user.getEmail())</span>
-<span class="fc" id="L187">        .ifPresentOrElse(</span>
-<span class="fc" id="L188">            moderatorRepository::delete,</span>
-<span class="fc" id="L189">            () -&gt; moderatorRepository.save(new Moderator(user.getEmail())));</span>
+<span class="fc" id="L189">    moderatorRepository</span>
+<span class="fc" id="L190">        .findByEmail(user.getEmail())</span>
+<span class="fc" id="L191">        .ifPresentOrElse(</span>
+<span class="fc" id="L192">            moderatorRepository::delete,</span>
+<span class="fc" id="L193">            () -&gt; moderatorRepository.save(new Moderator(user.getEmail())));</span>
 
-<span class="fc" id="L191">    return user;</span>
+<span class="fc" id="L195">    return userDTO(user);</span>
+  }
+
+  private UserDTO userDTO(User user) {
+<span class="fc" id="L199">    String email = user.getEmail();</span>
+<span class="fc bfc" id="L200" title="All 4 branches covered.">    boolean isAdmin = adminEmails.contains(email) || adminRepository.existsByEmail(email);</span>
+<span class="fc" id="L201">    boolean isModerator = moderatorRepository.existsByEmail(email);</span>
+<span class="fc" id="L202">    return new UserDTO(user, isAdmin, isModerator);</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

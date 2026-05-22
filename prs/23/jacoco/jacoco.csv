@@ -4,9 +4,9 @@ proj-dining,edu.ucsb.cs156.dining.interceptors,RoleInterceptorConfig,0,9,0,0,0,3
 proj-dining,edu.ucsb.cs156.dining.entities,User,0,9,0,2,0,3,0,2,0,1
 proj-dining,edu.ucsb.cs156.dining.controllers,DiningCommonsController,0,13,0,0,0,4,0,3,0,3
 proj-dining,edu.ucsb.cs156.dining.controllers,AdminController.AdminDTO,0,18,0,0,0,3,0,2,0,2
-proj-dining,edu.ucsb.cs156.dining.controllers,UsersController,0,219,0,6,0,46,0,16,0,13
+proj-dining,edu.ucsb.cs156.dining.controllers,UsersController,0,261,0,10,0,52,0,19,0,14
 proj-dining,edu.ucsb.cs156.dining.controllers,CSRFController,0,5,0,0,0,2,0,2,0,2
-proj-dining,edu.ucsb.cs156.dining.controllers,UserInfoController,0,6,0,0,0,2,0,2,0,2
+proj-dining,edu.ucsb.cs156.dining.controllers,UserInfoController,2,44,2,2,0,8,2,2,0,2
 proj-dining,edu.ucsb.cs156.dining.controllers,SystemInfoController,0,7,0,0,0,2,0,2,0,2
 proj-dining,edu.ucsb.cs156.dining.controllers,ReviewController,0,414,0,30,0,92,0,36,0,21
 proj-dining,edu.ucsb.cs156.dining.controllers,UCSBDiningMenuItemsController,0,95,0,4,0,21,0,6,0,4
@@ -18,6 +18,8 @@ proj-dining,edu.ucsb.cs156.dining.utilities,CanonicalFormConverter,0,17,0,0,0,4,
 proj-dining,edu.ucsb.cs156.dining.errors,EntityNotFoundException,0,17,0,0,0,2,0,1,0,1
 proj-dining,edu.ucsb.cs156.dining.statuses,ModerationStatus,0,21,0,0,0,4,0,1,0,1
 proj-dining,edu.ucsb.cs156.dining.models,DiningCommons,0,13,0,0,0,3,0,1,0,1
+proj-dining,edu.ucsb.cs156.dining.models,CurrentUserDTO,0,9,0,0,0,1,0,1,0,1
+proj-dining,edu.ucsb.cs156.dining.models,UserDTO,0,84,0,0,0,17,0,2,0,2
 proj-dining,edu.ucsb.cs156.dining.services,UCSBDiningMenuItemsService.new TypeReference() {...},0,3,0,0,0,1,0,1,0,1
 proj-dining,edu.ucsb.cs156.dining.services,UCSBDiningMenuService,0,140,0,0,0,29,0,3,0,3
 proj-dining,edu.ucsb.cs156.dining.services,DiningCommonsService.new TypeReference() {...},0,3,0,0,0,1,0,1,0,1

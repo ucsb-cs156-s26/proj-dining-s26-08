@@ -27,7 +27,7 @@ export function onToggleModeratorSuccess(message) {
 }
 
 export function onToggleAdminResult(data, cell) {
-  if (data?.admin === cell?.row?.original?.admin) {
+  if (data?.admin === cell.row.original.admin) {
     onToggleAdminSuccess(
       "Cannot toggle admin status: this user is a super admin.",
     );

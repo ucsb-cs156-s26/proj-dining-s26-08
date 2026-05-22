@@ -1,6 +1,7 @@
 import {
   cellToAxiosParamsToggleAdmin,
   cellToAxiosParamsToggleModerator,
+  extractCurrentUserId,
   onToggleAdminSuccess,
   onToggleModeratorSuccess,
   onToggleAdminResult,
@@ -143,6 +144,25 @@ describe("Users Utils", () => {
 
       expect(mockToast).toHaveBeenCalledWith("Admin status toggled");
       restoreConsole();
+    });
+  });
+
+  describe("extractCurrentUserId", () => {
+    test("returns the id when the full currentUser path is present", () => {
+      const currentUser = { data: { root: { user: { id: 42 } } } };
+      expect(extractCurrentUserId(currentUser)).toBe(42);
+    });
+
+    test("returns undefined when currentUser.data is missing (kills ?. on data)", () => {
+      expect(extractCurrentUserId({})).toBeUndefined();
+    });
+
+    test("returns undefined when currentUser.data.root is null (kills ?. on root)", () => {
+      expect(extractCurrentUserId({ data: { root: null } })).toBeUndefined();
+    });
+
+    test("returns undefined when currentUser.data.root.user is missing (kills ?. on user)", () => {
+      expect(extractCurrentUserId({ data: { root: {} } })).toBeUndefined();
     });
   });
 });

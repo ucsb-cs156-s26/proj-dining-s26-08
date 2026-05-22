@@ -35,3 +35,7 @@ export function onToggleAdminResult(data, cell) {
     onToggleAdminSuccess("Admin status toggled");
   }
 }
+
+export function extractCurrentUserId(currentUser) {
+  return currentUser.data?.root?.user?.id;
+}

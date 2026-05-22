@@ -8,6 +8,7 @@ import { useCurrentUser } from "main/utils/currentUser";
 import {
   cellToAxiosParamsToggleAdmin,
   cellToAxiosParamsToggleModerator,
+  extractCurrentUserId,
   onToggleAdminResult,
   onToggleModeratorSuccess,
 } from "main/utils/Users";
@@ -16,7 +17,7 @@ const AdminUsersPage = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const currentUser = useCurrentUser();
-  const currentUserId = currentUser.data?.root?.user?.id;
+  const currentUserId = extractCurrentUserId(currentUser);
 
   const {
     data: users,

@@ -89,7 +89,7 @@ import org.springframework.web.bind.annotation.RestController;
 <span class="fc" id="L89">      throw new UnsupportedOperationException(</span>
           &quot;Forbidden to delete an admin from ADMIN_EMAILS list&quot;);
     }
-<span class="fc" id="L92">    adminRepository.delete(admin);</span>
+<span class="fc" id="L92">    adminRepository.deleteByEmail(admin.getEmail());</span>
 <span class="fc" id="L93">    return genericMessage(&quot;Admin with id %s deleted&quot;.formatted(email));</span>
   }
 }

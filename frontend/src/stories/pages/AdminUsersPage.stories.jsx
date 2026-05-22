@@ -33,6 +33,14 @@ Default.parameters = {
         status: 200,
       });
     }),
+    http.put("/api/admin/toggleAdmin", ({ request }) => {
+      toast(`Generated: ${request.method} ${request.url}`);
+      return HttpResponse.json({}, { status: 200 });
+    }),
+    http.put("/api/admin/toggleModerator", ({ request }) => {
+      toast(`Generated: ${request.method} ${request.url}`);
+      return HttpResponse.json({}, { status: 200 });
+    }),
     http.post("/logout", ({ request }) => {
       toast(`Generated: ${request.method} ${request.url}`);
       return HttpResponse.json(

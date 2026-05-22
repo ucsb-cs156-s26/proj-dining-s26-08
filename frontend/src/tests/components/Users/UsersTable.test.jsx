@@ -1,8 +1,12 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { vi } from "vitest";
 import usersFixtures from "fixtures/usersFixtures";
 import UsersTable from "main/components/Users/UsersTable";
 
 describe("UserTable tests", () => {
+  const testId = "UsersTable";
+
   test("renders without crashing for empty table", () => {
     render(<UsersTable users={[]} />);
   });
@@ -34,7 +38,6 @@ describe("UserTable tests", () => {
       "alias",
       "proposedAlias",
     ];
-    const testId = "UsersTable";
 
     expectedHeaders.forEach((headerText) => {
       const header = screen.getByText(headerText);
@@ -82,5 +85,128 @@ describe("UserTable tests", () => {
     expect(screen.getByText("Approved")).toBeInTheDocument();
     expect(screen.getByText("Rejected")).toBeInTheDocument();
     expect(screen.getByText("Awaiting Moderation")).toBeInTheDocument();
+  });
+
+  test("Toggle Admin and Toggle Moderator buttons are absent by default", () => {
+    render(<UsersTable users={usersFixtures.threeUsers} />);
+
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-0-col-Toggle Admin-button`),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-0-col-Toggle Moderator-button`),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(`${testId}-header-Toggle Admin`),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(`${testId}-header-Toggle Moderator`),
+    ).not.toBeInTheDocument();
+  });
+
+  test("Toggle buttons stay hidden when showToggleButtons is false even if callbacks are provided", () => {
+    const adminCb = vi.fn();
+    const modCb = vi.fn();
+    render(
+      <UsersTable
+        users={usersFixtures.threeUsers}
+        toggleAdminCallback={adminCb}
+        toggleModeratorCallback={modCb}
+        showToggleButtons={false}
+      />,
+    );
+
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-0-col-Toggle Admin-button`),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-0-col-Toggle Moderator-button`),
+    ).not.toBeInTheDocument();
+  });
+
+  test("Toggle Admin button renders and fires the provided callback with the cell", async () => {
+    const adminCb = vi.fn();
+    render(
+      <UsersTable
+        users={usersFixtures.threeUsers}
+        toggleAdminCallback={adminCb}
+        showToggleButtons={true}
+      />,
+    );
+
+    expect(
+      screen.getByTestId(`${testId}-header-Toggle Admin`),
+    ).toBeInTheDocument();
+
+    const button = screen.getByTestId(
+      `${testId}-cell-row-1-col-Toggle Admin-button`,
+    );
+    expect(button).toBeInTheDocument();
+    await userEvent.click(button);
+
+    expect(adminCb).toHaveBeenCalledTimes(1);
+    const calledWithCell = adminCb.mock.calls[0][0];
+    expect(calledWithCell.row.original.id).toBe(2);
+  });
+
+  test("Toggle Moderator button renders and fires the provided callback with the cell", async () => {
+    const modCb = vi.fn();
+    render(
+      <UsersTable
+        users={usersFixtures.threeUsers}
+        toggleModeratorCallback={modCb}
+        showToggleButtons={true}
+      />,
+    );
+
+    expect(
+      screen.getByTestId(`${testId}-header-Toggle Moderator`),
+    ).toBeInTheDocument();
+
+    const button = screen.getByTestId(
+      `${testId}-cell-row-2-col-Toggle Moderator-button`,
+    );
+    expect(button).toBeInTheDocument();
+    await userEvent.click(button);
+
+    expect(modCb).toHaveBeenCalledTimes(1);
+    const calledWithCell = modCb.mock.calls[0][0];
+    expect(calledWithCell.row.original.id).toBe(3);
+  });
+
+  test("Only Toggle Admin column appears when only that callback is supplied with showToggleButtons", () => {
+    const adminCb = vi.fn();
+    render(
+      <UsersTable
+        users={usersFixtures.threeUsers}
+        toggleAdminCallback={adminCb}
+        showToggleButtons={true}
+      />,
+    );
+
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-Toggle Admin-button`),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-0-col-Toggle Moderator-button`),
+    ).not.toBeInTheDocument();
+  });
+
+  test("Only Toggle Moderator column appears when only that callback is supplied with showToggleButtons", () => {
+    const modCb = vi.fn();
+    render(
+      <UsersTable
+        users={usersFixtures.threeUsers}
+        toggleModeratorCallback={modCb}
+        showToggleButtons={true}
+      />,
+    );
+
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-Toggle Moderator-button`),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-0-col-Toggle Admin-button`),
+    ).not.toBeInTheDocument();
   });
 });

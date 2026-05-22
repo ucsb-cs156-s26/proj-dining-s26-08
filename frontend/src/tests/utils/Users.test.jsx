@@ -134,5 +134,15 @@ describe("Users Utils", () => {
       );
       restoreConsole();
     });
+
+    test("Treats an undefined server response as a change and toasts 'Admin status toggled'", () => {
+      const restoreConsole = mockConsole();
+      const cell = { row: { original: { id: 9, admin: true } } };
+
+      onToggleAdminResult(undefined, cell);
+
+      expect(mockToast).toHaveBeenCalledWith("Admin status toggled");
+      restoreConsole();
+    });
   });
 });

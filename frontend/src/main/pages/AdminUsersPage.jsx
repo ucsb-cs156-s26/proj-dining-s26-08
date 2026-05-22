@@ -16,7 +16,7 @@ const AdminUsersPage = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const currentUser = useCurrentUser();
-  const currentUserId = currentUser?.data?.root?.user?.id;
+  const currentUserId = currentUser.data?.root?.user?.id;
 
   const {
     data: users,

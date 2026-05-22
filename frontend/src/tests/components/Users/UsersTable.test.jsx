@@ -124,6 +124,25 @@ describe("UserTable tests", () => {
     ).not.toBeInTheDocument();
   });
 
+  test("Toggle buttons stay hidden by default when callbacks are provided but showToggleButtons is omitted", () => {
+    const adminCb = vi.fn();
+    const modCb = vi.fn();
+    render(
+      <UsersTable
+        users={usersFixtures.threeUsers}
+        toggleAdminCallback={adminCb}
+        toggleModeratorCallback={modCb}
+      />,
+    );
+
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-0-col-Toggle Admin-button`),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId(`${testId}-cell-row-0-col-Toggle Moderator-button`),
+    ).not.toBeInTheDocument();
+  });
+
   test("Toggle Admin button renders and fires the provided callback with the cell", async () => {
     const adminCb = vi.fn();
     render(
@@ -142,6 +161,7 @@ describe("UserTable tests", () => {
       `${testId}-cell-row-1-col-Toggle Admin-button`,
     );
     expect(button).toBeInTheDocument();
+    expect(button).toHaveClass("btn-warning");
     await userEvent.click(button);
 
     expect(adminCb).toHaveBeenCalledTimes(1);
@@ -167,6 +187,7 @@ describe("UserTable tests", () => {
       `${testId}-cell-row-2-col-Toggle Moderator-button`,
     );
     expect(button).toBeInTheDocument();
+    expect(button).toHaveClass("btn-info");
     await userEvent.click(button);
 
     expect(modCb).toHaveBeenCalledTimes(1);

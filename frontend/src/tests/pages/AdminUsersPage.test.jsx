@@ -288,8 +288,9 @@ describe("AdminUsersPage tests", () => {
     });
   });
 
-  test("Demoting your own admin status navigates home", async () => {
+  test("Demoting your own admin status navigates home and invalidates the current-user query", async () => {
     const queryClient = new QueryClient();
+    const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries");
     axiosMock
       .onGet("/api/currentUser")
       .reply(200, apiCurrentUserFixtures.adminUser);
@@ -325,6 +326,7 @@ describe("AdminUsersPage tests", () => {
       expect(mockNavigate).toHaveBeenCalledWith("/");
     });
     expect(mockToast).toHaveBeenCalledWith("Admin status toggled");
+    expect(invalidateSpy).toHaveBeenCalledWith("current user");
   });
 
   test("Demoting another admin does NOT navigate away", async () => {

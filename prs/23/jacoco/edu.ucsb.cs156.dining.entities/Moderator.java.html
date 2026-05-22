@@ -9,7 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-@Entity(name = &quot;moderators&quot;)
+@Entity
+@Table(name = &quot;moderators&quot;)
 public class Moderator {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,8 +19,8 @@ public class Moderator {
 
   private String email;
 
-<span class="fc" id="L21">  public Moderator(String email) {</span>
-<span class="fc" id="L22">    this.email = email;</span>
-<span class="fc" id="L23">  }</span>
+<span class="fc" id="L22">  public Moderator(String email) {</span>
+<span class="fc" id="L23">    this.email = email;</span>
+<span class="fc" id="L24">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

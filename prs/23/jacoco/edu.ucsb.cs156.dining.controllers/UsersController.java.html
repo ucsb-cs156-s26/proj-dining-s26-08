@@ -164,13 +164,15 @@ import org.springframework.web.server.ResponseStatusException;
 <span class="fc" id="L164">        userRepository.findById(id).orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
 
 <span class="fc bfc" id="L166" title="All 2 branches covered.">    if (!adminEmails.contains(user.getEmail())) {</span>
-<span class="fc" id="L167">      adminRepository</span>
-<span class="fc" id="L168">          .findByEmail(user.getEmail())</span>
-<span class="fc" id="L169">          .ifPresentOrElse(</span>
-<span class="fc" id="L170">              adminRepository::delete, () -&gt; adminRepository.save(new Admin(user.getEmail())));</span>
+<span class="fc" id="L167">      List&lt;Admin&gt; admins = adminRepository.findAllByEmail(user.getEmail());</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">      if (admins.isEmpty()) {</span>
+<span class="fc" id="L169">        adminRepository.save(new Admin(user.getEmail()));</span>
+      } else {
+<span class="fc" id="L171">        adminRepository.deleteAll(admins);</span>
+      }
     }
 
-<span class="fc" id="L173">    return userDTO(user);</span>
+<span class="fc" id="L175">    return userDTO(user);</span>
   }
 
   /**
@@ -183,23 +185,24 @@ import org.springframework.web.server.ResponseStatusException;
   @PutMapping(&quot;/admin/toggleModerator&quot;)
   public UserDTO toggleModeratorStatus(@RequestParam long id) {
 
-<span class="fc" id="L186">    User user =</span>
-<span class="fc" id="L187">        userRepository.findById(id).orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
+<span class="fc" id="L188">    User user =</span>
+<span class="fc" id="L189">        userRepository.findById(id).orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
 
-<span class="fc" id="L189">    moderatorRepository</span>
-<span class="fc" id="L190">        .findByEmail(user.getEmail())</span>
-<span class="fc" id="L191">        .ifPresentOrElse(</span>
-<span class="fc" id="L192">            moderatorRepository::delete,</span>
-<span class="fc" id="L193">            () -&gt; moderatorRepository.save(new Moderator(user.getEmail())));</span>
+<span class="fc" id="L191">    List&lt;Moderator&gt; moderators = moderatorRepository.findAllByEmail(user.getEmail());</span>
+<span class="fc bfc" id="L192" title="All 2 branches covered.">    if (moderators.isEmpty()) {</span>
+<span class="fc" id="L193">      moderatorRepository.save(new Moderator(user.getEmail()));</span>
+    } else {
+<span class="fc" id="L195">      moderatorRepository.deleteAll(moderators);</span>
+    }
 
-<span class="fc" id="L195">    return userDTO(user);</span>
+<span class="fc" id="L198">    return userDTO(user);</span>
   }
 
   private UserDTO userDTO(User user) {
-<span class="fc" id="L199">    String email = user.getEmail();</span>
-<span class="fc bfc" id="L200" title="All 4 branches covered.">    boolean isAdmin = adminEmails.contains(email) || adminRepository.existsByEmail(email);</span>
-<span class="fc" id="L201">    boolean isModerator = moderatorRepository.existsByEmail(email);</span>
-<span class="fc" id="L202">    return new UserDTO(user, isAdmin, isModerator);</span>
+<span class="fc" id="L202">    String email = user.getEmail();</span>
+<span class="fc bfc" id="L203" title="All 4 branches covered.">    boolean isAdmin = adminEmails.contains(email) || adminRepository.existsByEmail(email);</span>
+<span class="fc" id="L204">    boolean isModerator = moderatorRepository.existsByEmail(email);</span>
+<span class="fc" id="L205">    return new UserDTO(user, isAdmin, isModerator);</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

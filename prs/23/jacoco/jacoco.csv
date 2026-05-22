@@ -1,5 +1,5 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-proj-dining,edu.ucsb.cs156.dining.interceptors,RoleInterceptor,0,109,0,12,0,27,0,10,0,4
+proj-dining,edu.ucsb.cs156.dining.interceptors,RoleInterceptor,0,119,0,14,0,28,0,11,0,4
 proj-dining,edu.ucsb.cs156.dining.interceptors,RoleInterceptorConfig,0,9,0,0,0,3,0,2,0,2
 proj-dining,edu.ucsb.cs156.dining.entities,User,0,9,0,2,0,3,0,2,0,1
 proj-dining,edu.ucsb.cs156.dining.controllers,DiningCommonsController,0,13,0,0,0,4,0,3,0,3

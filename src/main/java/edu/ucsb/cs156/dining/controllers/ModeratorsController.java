@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * This is a REST controller for getting information about the instructors. These endpoints are only
- * accessible to instructors with the role "ROLE_ADMIN".
+ * This is a REST controller for getting information about the moderators. These endpoints are only
+ * accessible to users with the role "ROLE_ADMIN".
  */
 @Tag(name = "Moderators")
 @RequestMapping("/api/admin/moderators")
 @RestController
 @Slf4j
-public class ModeratorController extends ApiController {
+public class ModeratorsController extends ApiController {
   @Autowired ModeratorRepository moderatorRepository;
 
   @Autowired ObjectMapper mapper;
@@ -39,8 +39,8 @@ public class ModeratorController extends ApiController {
   @Operation(summary = "Create a new Moderator")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PostMapping("/post")
-  public Moderator postInstructor(@RequestParam String email) {
-    String convertedEmail = CanonicalFormConverter.convertToValidEmail(email);
+  public Moderator postModerator(@RequestParam String email) {
+    String convertedEmail = CanonicalFormConverter.convertToValidEmail(email).strip();
     Moderator moderator = Moderator.builder().email(convertedEmail).build();
     moderatorRepository.save(moderator);
     return moderator;
@@ -54,16 +54,21 @@ public class ModeratorController extends ApiController {
   @Operation(summary = "List all Moderators")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @GetMapping("/get")
-  public Iterable<Moderator> allInstructors() {
+  public Iterable<Moderator> allModerators() {
     Iterable<Moderator> moderators = moderatorRepository.findAll();
     return moderators;
   }
 
-  /** Delete an Moderator by email, available only to Admins. */
+  /**
+   * Delete a Moderator by email, available only to Admins.
+   *
+   * @param email the email of the moderator to delete
+   * @return a message indicating the moderator was deleted or not found
+   */
   @Operation(summary = "Delete a Moderator by email")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @DeleteMapping("/delete")
-  public ResponseEntity<String> deleteInstructor(@RequestParam String email) {
+  public ResponseEntity<String> deleteModerator(@RequestParam String email) {
     Moderator moderator = moderatorRepository.findById(email).orElse(null);
 
     if (moderator == null) {

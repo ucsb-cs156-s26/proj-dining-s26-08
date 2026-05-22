@@ -25,3 +25,13 @@ export function onToggleModeratorSuccess(message) {
   console.log(message);
   toast(message);
 }
+
+export function onToggleAdminResult(data, cell) {
+  if (data?.admin === cell?.row?.original?.admin) {
+    onToggleAdminSuccess(
+      "Cannot toggle admin status: this user is a super admin.",
+    );
+  } else {
+    onToggleAdminSuccess("Admin status toggled");
+  }
+}

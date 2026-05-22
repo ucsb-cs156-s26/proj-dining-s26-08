@@ -3,6 +3,7 @@ import {
   cellToAxiosParamsToggleModerator,
   onToggleAdminSuccess,
   onToggleModeratorSuccess,
+  onToggleAdminResult,
 } from "main/utils/Users";
 import mockConsole from "tests/testutils/mockConsole";
 import { vi } from "vitest";
@@ -88,6 +89,49 @@ describe("Users Utils", () => {
       expect(console.log).toHaveBeenCalledWith("Moderator status toggled");
       expect(mockToast).toHaveBeenCalledWith("Moderator status toggled");
 
+      restoreConsole();
+    });
+  });
+
+  describe("onToggleAdminResult", () => {
+    test("When the server's admin value differs from the row's, toasts 'Admin status toggled'", () => {
+      const restoreConsole = mockConsole();
+      const cell = { row: { original: { id: 5, admin: false } } };
+      const data = { id: 5, admin: true };
+
+      onToggleAdminResult(data, cell);
+
+      expect(mockToast).toHaveBeenCalledWith("Admin status toggled");
+      expect(console.log).toHaveBeenCalledWith("Admin status toggled");
+      restoreConsole();
+    });
+
+    test("When the server's admin value equals the row's (no-op for super admin), toasts a clearer message", () => {
+      const restoreConsole = mockConsole();
+      const cell = { row: { original: { id: 1, admin: true } } };
+      const data = { id: 1, admin: true };
+
+      onToggleAdminResult(data, cell);
+
+      expect(mockToast).toHaveBeenCalledWith(
+        "Cannot toggle admin status: this user is a super admin.",
+      );
+      expect(console.log).toHaveBeenCalledWith(
+        "Cannot toggle admin status: this user is a super admin.",
+      );
+      restoreConsole();
+    });
+
+    test("Also flags the unchanged case when both rows are admin=false (e.g. another super admin whose flag is false)", () => {
+      const restoreConsole = mockConsole();
+      const cell = { row: { original: { id: 2, admin: false } } };
+      const data = { id: 2, admin: false };
+
+      onToggleAdminResult(data, cell);
+
+      expect(mockToast).toHaveBeenCalledWith(
+        "Cannot toggle admin status: this user is a super admin.",
+      );
       restoreConsole();
     });
   });

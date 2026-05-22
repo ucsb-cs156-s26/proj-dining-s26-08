@@ -22,6 +22,12 @@ vi.mock("react-toastify", async () => {
   };
 });
 
+const mockNavigate = vi.fn();
+vi.mock("react-router", async () => ({
+  ...(await vi.importActual("react-router")),
+  useNavigate: () => mockNavigate,
+}));
+
 describe("AdminUsersPage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
 
@@ -31,6 +37,7 @@ describe("AdminUsersPage tests", () => {
     axiosMock.reset();
     axiosMock.resetHistory();
     mockToast.mockClear();
+    mockNavigate.mockClear();
     axiosMock
       .onGet("/api/currentUser")
       .reply(200, apiCurrentUserFixtures.userOnly);
@@ -204,7 +211,7 @@ describe("AdminUsersPage tests", () => {
     expect(mockToast).toHaveBeenCalledWith("Moderator status toggled");
   });
 
-  test("Toggle Admin against a super-admin still completes the PUT call (backend silently no-ops)", async () => {
+  test("Toggle Admin against a super-admin shows a clearer message instead of 'Admin status toggled'", async () => {
     const queryClient = new QueryClient();
     axiosMock.onGet("/api/admin/users").reply(200, usersFixtures.threeUsers);
     axiosMock.onPut("/api/admin/toggleAdmin").reply(200, {
@@ -238,7 +245,10 @@ describe("AdminUsersPage tests", () => {
       expect(axiosMock.history.put.length).toBe(1);
     });
     expect(axiosMock.history.put[0].params).toEqual({ id: 1 });
-    expect(mockToast).toHaveBeenCalledWith("Admin status toggled");
+    expect(mockToast).toHaveBeenCalledWith(
+      "Cannot toggle admin status: this user is a super admin.",
+    );
+    expect(mockToast).not.toHaveBeenCalledWith("Admin status toggled");
   });
 
   test("Table refetches /api/admin/users after a successful toggle", async () => {
@@ -276,5 +286,82 @@ describe("AdminUsersPage tests", () => {
       ).length;
       expect(usersGetsAfter).toBeGreaterThan(usersGetsBefore);
     });
+  });
+
+  test("Demoting your own admin status navigates home", async () => {
+    const queryClient = new QueryClient();
+    axiosMock
+      .onGet("/api/currentUser")
+      .reply(200, apiCurrentUserFixtures.adminUser);
+    axiosMock.onGet("/api/admin/users").reply(200, usersFixtures.threeUsers);
+    axiosMock.onPut("/api/admin/toggleAdmin").reply(200, {
+      id: 1,
+      email: "phtcon@ucsb.edu",
+      admin: false,
+      moderator: false,
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AdminUsersPage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByTestId(`${testId}-cell-row-0-col-Toggle Admin-button`),
+      ).toBeInTheDocument();
+    });
+
+    await act(async () => {
+      await userEvent.click(
+        screen.getByTestId(`${testId}-cell-row-0-col-Toggle Admin-button`),
+      );
+    });
+
+    await waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith("/");
+    });
+    expect(mockToast).toHaveBeenCalledWith("Admin status toggled");
+  });
+
+  test("Demoting another admin does NOT navigate away", async () => {
+    const queryClient = new QueryClient();
+    axiosMock
+      .onGet("/api/currentUser")
+      .reply(200, apiCurrentUserFixtures.adminUser);
+    axiosMock.onGet("/api/admin/users").reply(200, usersFixtures.threeUsers);
+    axiosMock.onPut("/api/admin/toggleAdmin").reply(200, {
+      id: 2,
+      admin: false,
+      moderator: false,
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AdminUsersPage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByTestId(`${testId}-cell-row-1-col-Toggle Admin-button`),
+      ).toBeInTheDocument();
+    });
+
+    await act(async () => {
+      await userEvent.click(
+        screen.getByTestId(`${testId}-cell-row-1-col-Toggle Admin-button`),
+      );
+    });
+
+    await waitFor(() => {
+      expect(axiosMock.history.put.length).toBe(1);
+    });
+    expect(mockNavigate).not.toHaveBeenCalled();
   });
 });

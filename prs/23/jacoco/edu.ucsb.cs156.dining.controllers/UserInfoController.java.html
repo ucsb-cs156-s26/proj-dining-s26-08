@@ -44,7 +44,7 @@ import org.springframework.web.bind.annotation.RestController;
 <span class="fc" id="L44">    UserDTO userDTO =</span>
         new UserDTO(
             user,
-<span class="pc bpc" id="L47" title="2 of 4 branches missed.">            adminEmails.contains(user.getEmail()) || adminRepository.existsByEmail(user.getEmail()),</span>
+<span class="fc bfc" id="L47" title="All 4 branches covered.">            adminEmails.contains(user.getEmail()) || adminRepository.existsByEmail(user.getEmail()),</span>
 <span class="fc" id="L48">            moderatorRepository.existsByEmail(user.getEmail()));</span>
 <span class="fc" id="L49">    return new CurrentUserDTO(userDTO, currentUser.getRoles());</span>
   }

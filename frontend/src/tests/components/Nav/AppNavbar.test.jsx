@@ -181,4 +181,20 @@ describe("AppNavbar tests", () => {
       "/oauth2/authorization/google",
     );
   });
+
+  test("renders My Reviews link for logged in user", async () => {
+    const currentUser = currentUserFixtures.userOnly;
+    const doLogin = vi.fn();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await screen.findByText("Welcome, pconrad.cis@gmail.com");
+    expect(screen.getByText("My Reviews")).toBeInTheDocument();
+  });
 });

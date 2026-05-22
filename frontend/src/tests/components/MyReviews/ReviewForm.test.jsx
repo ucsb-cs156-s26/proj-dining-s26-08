@@ -141,4 +141,19 @@ describe("ReviewForm tests", () => {
       "is-invalid",
     );
   });
+
+  test("renders min and max validation rules on stars", () => {
+    render(<ReviewForm initialItemName="Pizza" submitAction={vi.fn()} />);
+    const select = screen.getByLabelText(/stars/i);
+    expect(select).toBeInTheDocument();
+    // options only go 1-5, confirming min/max boundaries
+    expect(screen.getByRole("option", { name: "1" })).toBeInTheDocument();
+    expect(screen.getByRole("option", { name: "5" })).toBeInTheDocument();
+  });
+
+  test("renders error feedback elements in DOM", () => {
+    render(<ReviewForm initialItemName="Pizza" submitAction={vi.fn()} />);
+    const feedbacks = document.querySelectorAll(".invalid-feedback");
+    expect(feedbacks.length).toBe(3);
+  });
 });

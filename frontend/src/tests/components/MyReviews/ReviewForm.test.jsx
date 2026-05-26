@@ -122,4 +122,26 @@ describe("ReviewForm tests", () => {
     render(<ReviewForm initialItemName="Pizza" submitAction={vi.fn()} />);
     expect(screen.queryByText(/my reviews/i)).not.toBeInTheDocument();
   });
+  test("resets form when initialContents changes", async () => {
+    const submitAction = vi.fn();
+    const { rerender } = render(
+      <ReviewForm initialItemName="Pizza" submitAction={submitAction} />,
+    );
+
+    rerender(
+      <ReviewForm
+        initialItemName="Pizza"
+        submitAction={submitAction}
+        initialContents={{
+          reviewerComments: "Updated comment",
+          itemsStars: 3,
+          dateItemServed: "2024-04-01T12:00",
+        }}
+      />,
+    );
+
+    await waitFor(() =>
+      expect(screen.getByLabelText(/comments/i)).toHaveValue("Updated comment"),
+    );
+  });
 });

@@ -55,9 +55,11 @@ export default function EditReviewPage() {
         ) : (
           <ReviewForm
             initialItemName={review.item.name}
-            initialComments={review.reviewerComments}
-            initialStars={review.itemsStars}
-            initialDateServed={review.dateItemServed}
+            initialContents={{
+              reviewerComments: review.reviewerComments,
+              itemsStars: review.itemsStars,
+              dateItemServed: review.dateItemServed,
+            }}
             submitAction={submitReview}
             submitButtonText="Update Review"
           />

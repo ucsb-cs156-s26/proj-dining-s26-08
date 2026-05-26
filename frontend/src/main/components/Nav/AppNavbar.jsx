@@ -74,18 +74,12 @@ export default function AppNavbar({
                     id="appnavbar-moderate-dropdown"
                     data-testid="appnavbar-moderate-dropdown"
                   >
-<<<<<<< HEAD
-                    <NavDropdown.Item href="/moderation">
-                      Moderator Page
-                    </NavDropdown.Item>
-=======
                     <NavDropdown.Item as={Link} to="/moderate/aliases">
                       Moderator Page
                     </NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/moderate">
                       Moderate Reviews
                     </NavDropdown.Item>
->>>>>>> 805ccedde (Replace internal hrefs with React Router Link in AppNavbar)
                   </NavDropdown>
                 </>
               )}

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/DiningCommons/DiningCommonsTable.jsx</title>
+    <title>Code coverage report for components/Moderation/ModerationModal.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/DiningCommons</a> DiningCommonsTable.jsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Moderation</a> ModerationModal.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -121,18 +121,7 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">49x</span>
-<span class="cline-any cline-yes">49x</span>
+<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -141,6 +130,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-yes">66x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -155,7 +150,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,86 +166,76 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">200x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">200x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">200x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
-import OurTable from "main/components/OurTable";
-import { Link } from "react-router";
+import { Modal, Button, Form } from "react-bootstrap";
 &nbsp;
-export default function DiningCommonsTable({ commons, date }) {
-  const testid = "DiningCommonsTable";
-  const columns = [
-    {
-      Header: "Code",
-      accessor: "code", // accessor is the "key" in the data
-      Cell: ({ value }) =&gt; (
-        &lt;Link to={`/diningcommons/${date}/${value}`}&gt;{value}&lt;/Link&gt;
-      ),
-    },
-    {
-      Header: "Name",
-      accessor: "name",
-    },
-    {
-      Header: "Meals Offered Today",
-      accessor: "mealsOfferedToday",
-      Cell: ({ value, row }) =&gt; {
-        return (
-          &lt;div&gt;
-            {!value || value.length === 0
-              ? "No meals offered today"
-              : value.map((meal) =&gt; (
-                  &lt;Link
-                    key={meal.code}
-                    to={`/diningcommons/${date}/${row.original.code}/${meal.code}`}
-                    className="p-2"
-                    data-testid={`DiningCommonsTable-cell-row-${row.index}-col-meal-${meal.code}`}
-                  &gt;
-                    {meal.name}
-                  &lt;/Link&gt;
-                ))}
+export default function ModerationModal({
+  show,
+  onHide,
+  status,
+  moderatorComments,
+  onModeratorCommentsChange,
+  onSubmit,
+  review,
+}) {
+  const title = status === "APPROVED" ? "Approve Review" : "Reject Review";
+  const actionText = status === "APPROVED" ? "Approve" : "Reject";
+  const actionVerb = status === "APPROVED" ? "approving" : "rejecting";
+&nbsp;
+  return (
+    &lt;Modal show={show} onHide={onHide} centered&gt;
+      &lt;Modal.Header closeButton&gt;
+        &lt;Modal.Title&gt;{title}&lt;/Modal.Title&gt;
+      &lt;/Modal.Header&gt;
+      &lt;Modal.Body&gt;
+        &lt;p&gt;Please add moderator comments before {actionVerb} this review.&lt;/p&gt;
+        &lt;Form.Group controlId="moderatorComments"&gt;
+          &lt;Form.Label&gt;Moderator Comments&lt;/Form.Label&gt;
+          &lt;Form.Control
+            as="textarea"
+            rows={4}
+            value={moderatorComments}
+            onChange={(e) =&gt; onModeratorCommentsChange(e.target.value)}
+            placeholder="Enter your moderator comments here"
+            data-testid="moderation-modal-comments"
+          /&gt;
+        &lt;/Form.Group&gt;
+        {review &amp;&amp; (
+          &lt;div className="mt-3"&gt;
+            &lt;strong&gt;Review ID:&lt;/strong&gt; {review.id}
+            &lt;br /&gt;
+            &lt;strong&gt;Item:&lt;/strong&gt; {review.item?.name ?? "Unknown"}
           &lt;/div&gt;
-        );
-      },
-    },
-    {
-      Header: "Has Dining Cam",
-      accessor: "hasDiningCam",
-      // Credits to Jayden for the code here!
-      // Renders a checkmark box.
-      Cell: ({ value }) =&gt; (value ? "✅" : "❌"),
-    },
-    {
-      Header: "Has Sack Meal",
-      accessor: "hasSackMeal",
-      Cell: ({ value }) =&gt; (value ? "✅" : "❌"),
-    },
-    {
-      Header: "Has Takeout Meal",
-      accessor: "hasTakeoutMeal",
-      Cell: ({ value }) =&gt; (value ? "✅" : "❌"),
-    },
-  ];
-&nbsp;
-  const displayedColumns = columns;
-&nbsp;
-  return &lt;OurTable data={commons} columns={displayedColumns} testid={testid} /&gt;;
+        )}
+      &lt;/Modal.Body&gt;
+      &lt;Modal.Footer&gt;
+        &lt;Button variant="secondary" onClick={onHide}&gt;
+          Cancel
+        &lt;/Button&gt;
+        &lt;Button
+          variant={status === "APPROVED" ? "primary" : "danger"}
+          onClick={onSubmit}
+          disabled={!moderatorComments.trim()}
+          data-testid="moderation-modal-submit"
+        &gt;
+          {actionText}
+        &lt;/Button&gt;
+      &lt;/Modal.Footer&gt;
+    &lt;/Modal&gt;
+  );
 }
 &nbsp;</pre></td></tr></table></pre>
 

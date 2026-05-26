@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/Statistics/ItemStatisticsTable.jsx</title>
+    <title>Code coverage report for pages/Statistics/CommonsMealAveragesPage.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Statistics</a> ItemStatisticsTable.jsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">pages/Statistics</a> CommonsMealAveragesPage.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -100,14 +100,30 @@
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
 <a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -122,13 +138,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">29x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,42 +147,56 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
-import OurTable from "main/components/OurTable";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from "react";
+import { Form } from "react-bootstrap";
+import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+import CommonsMealAveragesSection from "main/components/Statistics/CommonsMealAveragesSection";
+import { useBackend } from "main/utils/useBackend";
 &nbsp;
-export default function ItemStatisticsTable({
-  items,
-  testIdPrefix = "ItemStatisticsTable",
-}) {
-  const columns = [
-    {
-      Header: "Item",
-      accessor: "itemName",
-    },
-    {
-      Header: "Dining Commons",
-      accessor: "diningCommonsCode",
-    },
-    {
-      Header: "Meal",
-      accessor: "mealCode",
-    },
-    {
-      Header: "Station",
-      accessor: "station",
-    },
-    {
-      Header: "Average Score",
-      accessor: "averageStars",
-      Cell: ({ value }) =&gt; value.toFixed(2),
-    },
-    {
-      Header: "Reviews",
-      accessor: "reviewCount",
-    },
-  ];
+export default function CommonsMealAveragesPage() {
+  const { data: commons } = useBackend(
+    ["/api/dining/all"],
+    { method: "GET", url: "/api/dining/all" },
+    [],
+  );
 &nbsp;
-  return &lt;OurTable data={items} columns={columns} testid={testIdPrefix} /&gt;;
+  const [selectedCode, setSelectedCode] = useState("");
+&nbsp;
+  const effectiveCode = selectedCode || commons[0]?.code;
+&nbsp;
+  return (
+    &lt;BasicLayout&gt;
+      &lt;div className="pt-2"&gt;
+        &lt;h1&gt;Meal Averages by Dining Commons&lt;/h1&gt;
+        {commons.length &gt; 0 &amp;&amp; (
+          &lt;Form.Group className="mb-3"&gt;
+            &lt;Form.Label htmlFor="CommonsMealAveragesPage-commons-select"&gt;
+              Dining Commons
+            &lt;/Form.Label&gt;
+            &lt;Form.Select
+              id="CommonsMealAveragesPage-commons-select"
+              data-testid="CommonsMealAveragesPage-commons-select"
+              value={effectiveCode}
+              onChange={(e) =&gt; setSelectedCode(e.target.value)}
+            &gt;
+              {commons.map((c) =&gt; (
+                &lt;option key={c.code} value={c.code}&gt;
+                  {c.name}
+                &lt;/option&gt;
+              ))}
+            &lt;/Form.Select&gt;
+          &lt;/Form.Group&gt;
+        )}
+        {effectiveCode &amp;&amp; &lt;CommonsMealAveragesSection code={effectiveCode} /&gt;}
+      &lt;/div&gt;
+    &lt;/BasicLayout&gt;
+  );
 }
 &nbsp;</pre></td></tr></table></pre>
 

@@ -118,6 +118,12 @@ describe("ReviewForm tests", () => {
     );
   });
 
+  test("uses default values when no initialContents provided", () => {
+    render(<ReviewForm initialItemName="Pizza" submitAction={vi.fn()} />);
+    expect(screen.getByLabelText(/stars/i)).toHaveValue("5");
+    expect(screen.getByLabelText(/comments/i)).toHaveValue("");
+  });
+
   test("does not render My Reviews link when user is not logged in", async () => {
     render(<ReviewForm initialItemName="Pizza" submitAction={vi.fn()} />);
     expect(screen.queryByText(/my reviews/i)).not.toBeInTheDocument();

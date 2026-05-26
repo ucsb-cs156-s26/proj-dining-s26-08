@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for pages/Reviews/PostReviewPage.jsx</title>
+    <title>Code coverage report for components/Moderation/ModerationModal.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">pages/Reviews</a> PostReviewPage.jsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Moderation</a> ModerationModal.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -120,19 +120,8 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -144,25 +133,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-yes">66x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,61 +150,91 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import { useNavigate, useParams } from "react-router";
-import React from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
-import ReviewForm from "main/components/MyReviews/ReviewForm";
-import { useBackend } from "main/utils/useBackend";
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
+import { Modal, Button, Form } from "react-bootstrap";
 &nbsp;
-export default function PostReviewPage() {
-  const navigate = useNavigate();
-  const { id } = useParams();
-&nbsp;
-  const { data: menuItems } = useBackend(
-    // Stryker disable next-line all : don't test internal caching of React Query
-    [`/api/diningcommons/menuitem?id=${id}`],
-    // Stryker disable next-line all
-    {
-      // Stryker disable next-line all : the default method is get, so replacing with an empty string will do nothing
-      method: "GET",
-      // Stryker disable next-line all : id will be defined
-      url: `/api/diningcommons/menuitem?id=${id}`,
-    },
-    // Stryker disable next-line all : Don't test empty initial data
-    [],
-  );
-&nbsp;
-  const itemName = menuItems.name;
-&nbsp;
-  const submitReview = async (formData) =&gt; {
-    try {
-      await axios.post("/api/reviews/post", null, {
-        params: {
-          itemId: id,
-          reviewerComments: formData.reviewerComments,
-          itemsStars: formData.itemsStars,
-          dateItemServed: formData.dateItemServed,
-        },
-      });
-      // Stryker disable next-line all : itemName will be defined
-      toast(`Review submitted for ${itemName}`);
-      navigate(-1);
-    } catch (err) {
-      toast.error(
-        `Error submitting review: ${err.response?.data?.error || err.message}`,
-      );
-    }
-  };
+export default function ModerationModal({
+  show,
+  onHide,
+  status,
+  moderatorComments,
+  onModeratorCommentsChange,
+  onSubmit,
+  review,
+}) {
+  const title = status === "APPROVED" ? "Approve Review" : "Reject Review";
+  const actionText = status === "APPROVED" ? "Approve" : "Reject";
+  const actionVerb = status === "APPROVED" ? "approving" : "rejecting";
 &nbsp;
   return (
-    &lt;BasicLayout&gt;
-      &lt;div className="pt-2"&gt;
-        &lt;h1&gt;Post a review for Menu Item {id}&lt;/h1&gt;
-        &lt;ReviewForm initialItemName={itemName} submitAction={submitReview} /&gt;
-      &lt;/div&gt;
-    &lt;/BasicLayout&gt;
+    &lt;Modal show={show} onHide={onHide} centered&gt;
+      &lt;Modal.Header closeButton&gt;
+        &lt;Modal.Title&gt;{title}&lt;/Modal.Title&gt;
+      &lt;/Modal.Header&gt;
+      &lt;Modal.Body&gt;
+        &lt;p&gt;Please add moderator comments before {actionVerb} this review.&lt;/p&gt;
+        &lt;Form.Group controlId="moderatorComments"&gt;
+          &lt;Form.Label&gt;Moderator Comments&lt;/Form.Label&gt;
+          &lt;Form.Control
+            as="textarea"
+            rows={4}
+            value={moderatorComments}
+            onChange={(e) =&gt; onModeratorCommentsChange(e.target.value)}
+            placeholder="Enter your moderator comments here"
+            data-testid="moderation-modal-comments"
+          /&gt;
+        &lt;/Form.Group&gt;
+        {review &amp;&amp; (
+          &lt;div className="mt-3"&gt;
+            &lt;strong&gt;Review ID:&lt;/strong&gt; {review.id}
+            &lt;br /&gt;
+            &lt;strong&gt;Item:&lt;/strong&gt; {review.item?.name ?? "Unknown"}
+          &lt;/div&gt;
+        )}
+      &lt;/Modal.Body&gt;
+      &lt;Modal.Footer&gt;
+        &lt;Button variant="secondary" onClick={onHide}&gt;
+          Cancel
+        &lt;/Button&gt;
+        &lt;Button
+          variant={status === "APPROVED" ? "primary" : "danger"}
+          onClick={onSubmit}
+          disabled={!moderatorComments.trim()}
+          data-testid="moderation-modal-submit"
+        &gt;
+          {actionText}
+        &lt;/Button&gt;
+      &lt;/Modal.Footer&gt;
+    &lt;/Modal&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>

@@ -24,6 +24,12 @@ export default function ReviewForm({
   useEffect(() => {
     if (initialContents) {
       reset(initialContents);
+    } else {
+      reset({
+        reviewerComments: "",
+        itemsStars: 5,
+        dateItemServed: new Date().toISOString().slice(0, 16),
+      });
     }
   }, [initialContents, reset]);
 

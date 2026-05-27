@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/Meal/MealTable.jsx</title>
+    <title>Code coverage report for pages/Statistics/CommonsAveragesOverTimePage.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Meal</a> MealTable.jsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">pages/Statistics</a> CommonsAveragesOverTimePage.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -89,11 +89,18 @@
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -115,31 +122,57 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
-import OurTable from "main/components/OurTable";
-import { Link } from "react-router";
+import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+import CommonsAveragesOverTimeTable from "main/components/Statistics/CommonsAveragesOverTimeTable";
+import { useBackend } from "main/utils/useBackend";
 &nbsp;
-export default function MealTable({
-  meals,
-  dateTime,
-  diningCommonsCode,
-  testIdPrefix = "MealTable",
-}) {
-  const columns = [
+export default function CommonsAveragesOverTimePage() {
+  const { data: rows } = useBackend(
+    ["/api/statistics/commons/averages/overtime"],
     {
-      Header: "Meal",
-      accessor: "name", // accessor is the "key" in the data
-      Cell: ({ row }) =&gt; (
-        &lt;Link
-          to={`/diningcommons/${dateTime}/${diningCommonsCode}/${row.original.code}`}
-        &gt;
-          {row.original.name}
-        &lt;/Link&gt;
-      ),
+      method: "GET",
+      url: "/api/statistics/commons/averages/overtime",
     },
-  ];
+    [],
+  );
 &nbsp;
-  return &lt;OurTable data={meals} columns={columns} testid={testIdPrefix} /&gt;;
+  return (
+    &lt;BasicLayout&gt;
+      &lt;div className="pt-2"&gt;
+        &lt;h1&gt;Dining Commons Averages Over Time&lt;/h1&gt;
+        &lt;p&gt;
+          Average rating per dining commons grouped by the month the meal was
+          served. An averages-over-time graph is potentially coming soon.
+        &lt;/p&gt;
+        {rows &amp;&amp; rows.length === 0 ? (
+          &lt;p data-testid="CommonsAveragesOverTimePage-empty"&gt;
+            No reviews available yet.
+          &lt;/p&gt;
+        ) : (
+          &lt;CommonsAveragesOverTimeTable
+            rows={rows}
+            testIdPrefix="CommonsAveragesOverTimePage-table"
+          /&gt;
+        )}
+      &lt;/div&gt;
+    &lt;/BasicLayout&gt;
+  );
 }
 &nbsp;</pre></td></tr></table></pre>
 

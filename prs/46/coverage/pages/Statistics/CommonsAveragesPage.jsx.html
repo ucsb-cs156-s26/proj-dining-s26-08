@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/Statistics/CommonsMealAveragesTable.jsx</title>
+    <title>Code coverage report for pages/Statistics/CommonsAveragesPage.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Statistics</a> CommonsMealAveragesTable.jsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">pages/Statistics</a> CommonsAveragesPage.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/2</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
                 <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
+                <span class="quiet">Branches</span>
                 <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>1/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
@@ -88,14 +88,27 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -103,7 +116,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -114,29 +130,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
-import OurTable from "main/components/OurTable";
+import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+import CommonsAveragesTable from "main/components/Statistics/CommonsAveragesTable";
+import { useBackend } from "main/utils/useBackend";
 &nbsp;
-export default function CommonsMealAveragesTable({
-  averages,
-  testIdPrefix = "CommonsMealAveragesTable",
-}) {
-  const columns = [
+export default function CommonsAveragesPage() {
+  const { data: averages } = useBackend(
+    ["/api/statistics/commons/averages"],
     {
-      Header: "Meal",
-      accessor: "mealCode",
+      method: "GET",
+      url: "/api/statistics/commons/averages",
     },
-    {
-      Header: "Average Score",
-      accessor: "averageStars",
-      Cell: ({ value }) =&gt; value.toFixed(2),
-    },
-    {
-      Header: "Reviews",
-      accessor: "reviewCount",
-    },
-  ];
+    [],
+  );
 &nbsp;
-  return &lt;OurTable data={averages} columns={columns} testid={testIdPrefix} /&gt;;
+  return (
+    &lt;BasicLayout&gt;
+      &lt;div className="pt-2"&gt;
+        &lt;h1&gt;Dining Commons Averages&lt;/h1&gt;
+        {averages &amp;&amp; averages.length === 0 ? (
+          &lt;p data-testid="CommonsAveragesPage-empty"&gt;
+            No reviews available yet.
+          &lt;/p&gt;
+        ) : (
+          &lt;CommonsAveragesTable
+            averages={averages}
+            testIdPrefix="CommonsAveragesPage-table"
+          /&gt;
+        )}
+      &lt;/div&gt;
+    &lt;/BasicLayout&gt;
+  );
 }
 &nbsp;</pre></td></tr></table></pre>
 

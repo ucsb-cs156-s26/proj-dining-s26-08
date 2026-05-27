@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/Statistics/CommonsMealAveragesTable.jsx</title>
+    <title>Code coverage report for components/Statistics/CommonsAveragesTable.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Statistics</a> CommonsMealAveragesTable.jsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Statistics</a> CommonsAveragesTable.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -95,7 +95,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -103,7 +103,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -116,14 +116,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
 import OurTable from "main/components/OurTable";
 &nbsp;
-export default function CommonsMealAveragesTable({
+export default function CommonsAveragesTable({
   averages,
-  testIdPrefix = "CommonsMealAveragesTable",
+  testIdPrefix = "CommonsAveragesTable",
 }) {
   const columns = [
     {
-      Header: "Meal",
-      accessor: "mealCode",
+      Header: "Dining Commons",
+      accessor: "diningCommonsCode",
     },
     {
       Header: "Average Score",

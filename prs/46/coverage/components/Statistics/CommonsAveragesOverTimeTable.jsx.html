@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/Statistics/CommonsMealAveragesTable.jsx</title>
+    <title>Code coverage report for components/Statistics/CommonsAveragesOverTimeTable.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Statistics</a> CommonsMealAveragesTable.jsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Statistics</a> CommonsAveragesOverTimeTable.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -88,14 +88,18 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -103,7 +107,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -116,14 +124,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
 import OurTable from "main/components/OurTable";
 &nbsp;
-export default function CommonsMealAveragesTable({
-  averages,
-  testIdPrefix = "CommonsMealAveragesTable",
+export default function CommonsAveragesOverTimeTable({
+  rows,
+  testIdPrefix = "CommonsAveragesOverTimeTable",
 }) {
   const columns = [
     {
-      Header: "Meal",
-      accessor: "mealCode",
+      Header: "Dining Commons",
+      accessor: "diningCommonsCode",
+    },
+    {
+      Header: "Month",
+      accessor: "period",
     },
     {
       Header: "Average Score",
@@ -136,7 +148,7 @@ export default function CommonsMealAveragesTable({
     },
   ];
 &nbsp;
-  return &lt;OurTable data={averages} columns={columns} testid={testIdPrefix} /&gt;;
+  return &lt;OurTable data={rows} columns={columns} testid={testIdPrefix} /&gt;;
 }
 &nbsp;</pre></td></tr></table></pre>
 

@@ -160,11 +160,35 @@ describe("ReviewForm tests", () => {
     );
   });
 
-  test("does not reset form when initialContents is undefined", () => {
-    render(<ReviewForm initialItemName="Pizza" submitAction={vi.fn()} />);
+  test("preserves current values when initialContents becomes undefined", async () => {
+    const submitAction = vi.fn();
 
-    expect(screen.getByLabelText(/comments/i)).toHaveValue("");
-    expect(screen.getByLabelText(/stars/i)).toHaveValue("5");
+    const { rerender } = render(
+      <ReviewForm
+        initialItemName="Pizza"
+        submitAction={submitAction}
+        initialContents={{
+          reviewerComments: "Loaded review",
+          itemsStars: 4,
+          dateItemServed: "2024-04-01T12:00",
+        }}
+      />,
+    );
+
+    expect(screen.getByLabelText(/comments/i)).toHaveValue("Loaded review");
+    expect(screen.getByLabelText(/stars/i)).toHaveValue("4");
+
+    rerender(
+      <ReviewForm initialItemName="Pizza" submitAction={submitAction} />,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByLabelText(/comments/i)).toHaveValue("Loaded review");
+      expect(screen.getByLabelText(/stars/i)).toHaveValue("4");
+      expect(screen.getByLabelText(/date and time/i)).toHaveValue(
+        "2024-04-01T12:00",
+      );
+    });
   });
 
   test("resets form when initialContents changes", async () => {

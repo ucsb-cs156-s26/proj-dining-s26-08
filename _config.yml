@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s26/proj-dining-s26-08
 owner: ucsb-cs156-s26
 repo_name: proj-dining-s26-08
-pull_requests: [{"author":{"id":"U_kgDOCVHSBA","is_bot":false,"login":"dev-anj","name":"Anjali Dev"},"headRefName":"adev-issue16-reviewform-rhf","number":36,"title":"Adev issue16 reviewform rhf","url":"https://github.com/ucsb-cs156-s26/proj-dining-s26-08/pull/36"},{"author":{"id":"U_kgDOCVHSBA","is_bot":false,"login":"dev-anj","name":"Anjali Dev"},"headRefName":"adev-issue2-replace-hrefs","number":29,"title":"Replace internal hrefs with React Router Link in AppNavbar","url":"https://github.com/ucsb-cs156-s26/proj-dining-s26-08/pull/29"}]
+pull_requests: [{"author":{"id":"U_kgDOCVHSBA","is_bot":false,"login":"dev-anj","name":"Anjali Dev"},"headRefName":"adev-issue16-reviewform-rhf","number":36,"title":"Adev issue16 reviewform rhf","url":"https://github.com/ucsb-cs156-s26/proj-dining-s26-08/pull/36"}]

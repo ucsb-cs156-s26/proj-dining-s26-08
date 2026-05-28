@@ -22,9 +22,7 @@ export default function ReviewForm({
   });
 
   useEffect(() => {
-    if (initialContents) {
-      reset(initialContents);
-    }
+    reset(initialContents);
   }, [initialContents, reset]);
 
   return (

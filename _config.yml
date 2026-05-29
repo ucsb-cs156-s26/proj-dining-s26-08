@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s26/proj-dining-s26-08
 owner: ucsb-cs156-s26
 repo_name: proj-dining-s26-08
-pull_requests: [{"author":{"id":"U_kgDOCVPcVQ","is_bot":false,"login":"matthewli10","name":""},"headRefName":"matthewli-fix-json","number":53,"title":"fix: Restore item field in review API responses (replace @JsonIgnore with @JsonIgnoreProperties)","url":"https://github.com/ucsb-cs156-s26/proj-dining-s26-08/pull/53"}]
+pull_requests: []
